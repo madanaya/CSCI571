@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<!--
+<body>
+This is for the USC Disclaimer
+</body>
+-->
+<head>
+
+<script type="text/javascript">
+var xmlDoc;
+function loadXMLfromurl() {
+
+//Validate input text box empty
+    url = document.forms["xmlform"]["xmlurl"].value;
+
+    if (url == null || url == "") {
+        alert("Field cannot be empty: Enter url for company list xml file");
+        return false;
+    }
+
+  if (window.XMLHttpRequest)
+  {
+    xmlhttp = new XMLHttpRequest();
+  }
+  else
+  {
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
+  }
+
+  xmlhttp.open("GET",url,false);
+  xmlhttp.send();
+
+  xmlDoc = xmlhttp.responseXML;
+
+//Validate company exist in XML file
+// company_check = xmlDoc.getElementsByTagName("Name");
+// if(company_check.length == 0)
+// {
+// alert("XML file containing no company");
+// return false;
+// }
+
+  if (!xmlDoc || !xmlDoc.documentElement)
+  {
+    if (window.DOMParser) {
+                var parser = new DOMParser();
+                try {
+                    xmlDoc = parser.parseFromString (xmlhttp.responseText, "text/xml");
+                } catch (e) {
+                    alert ("XML parsing error");
+                    return null;
+                };
+            }
+  }
+
+  else
+    fetchXMLdata(xmlDoc);
+
+  return false
+}
+
+function fetchXMLdata(xmlDoc)
+{
+  var data_array = new Array();
+  var xmlheader = xmlDoc.getElementsByTagName("Row")[0].childNodes;
+
+  for(var i=0; i<((xmlheader.length-1)/2); i++)
+  {
+    data_array[i] = xmlDoc.getElementsByTagName("Data")[i].childNodes[0].nodeValue;
+  }
+
+//For Table Heading
+  var tables = " ";
+
+  tables = tables + "<table>";
+
+  tables = tables + "<tr>";
+    for(i=0; i<(xmlheader.length-1)/2; i++)
+    {
+      tables = tables+ "<th>" + data_array[i] + "</th>";
+    }
+
+  tables = tables + "</tr>";
+
+//Get the childnodes of the table for retrieving data
+  var getchildren = xmlDoc.getElementsByTagName("Table")[0].childNodes;
+
+  for(j=1; j<(getchildren.length-1)/2; j++)
+  {
+    tables = tables + "<tr>";
+    xmlheader = xmlDoc.getElementsByTagName("Row")[j].childNodes;
+    y = xmlDoc.getElementsByTagName("Row")[j].firstChild;
+
+    for(i=0; i<xmlheader.length; i++)
+    {
+      if(y.nodeType == 1)//Check if the node is an element:avoid considering undefined nodes
+        {
+          try
+          {
+           childvalue =  y.childNodes[0].nodeValue;
+          }catch(e)
+          {
+            childvalue = "N.A.";
+          }
+          if(y.nodeName == "HomePage")
+            tables = tables + '<td><a href="'+ y.childNodes[0].nodeValue +'">link to company</a></td>';
+
+          else if(y.nodeName == "Logo")
+            tables = tables + '<td><img src="'+ y.childNodes[0].nodeValue +'"></td>';
+
+          else
+            tables = tables + "<td>"+y.childNodes[0].nodeValue+"</td>";
+        }
+
+      y = y.nextSibling;
+    }
+    tables = tables + "</tr>";
+  }
+
+  tables = tables + "</table>";
+
+  var openpopup = window.open("","Data","width=800,height=500");
+  var html = "<html><head><style>table,td,th{border:1px double gray;}img{width:100px;height:50px;}</style></head><body>"+ tables + "<noscript></body></html>";
+  openpopup.document.open();
+  openpopup.document.write(html);
+}
+
+</script>
+</script>
+</head>
+
+<body>
+    <form id="xmlform" onsubmit="return loadXMLfromurl()">
+    <center>Enter url for Company List XML File</center><br>
+    <center><input type="text" name="xmlurl"><br><br></center>
+      <center><input type="submit" value="Submit Query"></input></center>
+    </form>
+
+</body>
+<noscript>

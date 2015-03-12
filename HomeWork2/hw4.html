@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<!--
+<body>
+This is for the USC Disclaimer
+</body>
+-->
+<head>
+
+<script type="text/javascript">
+var xmlDoc;
+function viewXML(url)
+ {
+
+   var URL = url.companylist_URL.value;
+   if (URL == null || URL == "") {
+       alert("Field cannot be empty: Enter url for company list xml file");
+       return true;
+   }
+
+   if (window.XMLHttpRequest)
+   {
+     xmlhttp = new XMLHttpRequest();
+   }
+   else
+   {
+     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
+   }
+
+   xmlhttp.open("GET",URL,false);
+   xmlhttp.send();
+
+   xmlDoc = xmlhttp.responseXML;
+
+    if (xmlDoc == null || xmlDoc.getElementsByTagName("Row").length == 0) //if IE, simply execute script (due to async prop).
+   {
+  alert("Error in XML file");
+  return true;
+  }
+
+       var html_text = generateHTML(xmlDoc);
+       hWin = window.open("", "Homework4", "height=600,width=800");
+       hWin.document.write(html_text);
+}
+
+   function generateHTML(xmlDoc)
+   {
+
+             var html_text="";
+             html_text+="<table border='2'>";
+
+            xmlheader = xmlDoc.getElementsByTagName("Row");
+            xmlheaderlist = xmlheader.item(0).childNodes;
+            html_text+="<tbody>";
+            html_text+="<tr>";
+            xmlheader = xmlDoc.getElementsByTagName("Row")[0].childNodes;
+            // output the headers
+           for(i=1; i<xmlheaderlist.length; i++)
+           {
+            if(xmlheaderlist.item(i).nodeType == 1)
+                       {
+                          header=xmlheaderlist.item(i).firstChild.nodeValue;
+
+                                 if(header=="Symbol")
+                                   header="Symbol";
+                                 if(header=="Name")
+                                   header="Name";
+                                 if(header=="LastScale")
+                                     header="LastScale";
+                                 if(header=="Sector")
+                                 header="Sector";
+                                 if(header=="Industry")
+                                 header="Industry";
+                                 if(header=="Homepage")
+                                 header="Homepage";
+                                 if(header=="Logo")
+                                 header="Logo";
+                    html_text+="<th>"+header+"</th>";
+                    }
+            }
+
+           html_text+="</tr>";
+
+          // Get the childnodes of the table for retrieving data
+             var getchildren = xmlDoc.getElementsByTagName("Table")[0].childNodes;
+             var i, j,childvalue;
+
+             for(j=1; j<(getchildren.length-1)/2; j++)
+             {
+               html_text+="<tr>";      //start a new row of the output table
+               xmlheader = xmlDoc.getElementsByTagName("Row")[j].childNodes;
+               y = xmlDoc.getElementsByTagName("Row")[j].firstChild;
+
+               for(i=0; i<xmlheader.length; i++)
+               {
+                 if(y.nodeType == 1)//Check if the node is an element:avoid considering undefined nodes
+                   {
+                     try
+                     {
+                      childvalue =  y.childNodes[0].nodeValue;
+                     }catch(e)
+                     {
+                       childvalue = "N.A.";
+                     }
+                     if(y.nodeName == "HomePage")
+                     html_text+= '<td><a href="'+ childvalue +'">link to company</a></td>';
+
+                     else if(y.nodeName == "Logo")
+                     html_text+= "<td><img src='"+ childvalue +"'width=100px; height=50px></td>";
+
+                     else
+                     html_text+= "<td>"+ childvalue +"</td>";
+                   }
+
+                 y = y.nextSibling;
+               }
+
+               html_text+="</tr>";
+             }
+                   html_text+="</tbody>";
+                   html_text+="</table>";
+                   html_text+="<noscript></body></html>";
+                   return html_text;
+
+         }
+</script>
+</head>
+
+<body>
+    <center>
+    <form name="myform" method="POST" id="location">
+      <p>Enter url for Company List XML File</p>
+    <input type="text" name="companylist_URL"><br/><br/>
+    <input type="button" name="submit" value="Submit Query" onClick="viewXML(this.form)" />
+    </form>
+    </center>
+<noscript>
+</body>
+</html>
