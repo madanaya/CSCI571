@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ebay Search</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_result">ResultActivity</string>
+
+    <string-array name="Fields">
+        <item>Best Match</item>
+        <item>Price:highest first</item>
+        <item>Price + Shipping:highest first</item>
+        <item>Price + Shipping:lowest first</item>
+    </string-array>
+    <string name="app_id">424817544344218</string>
+</resources>

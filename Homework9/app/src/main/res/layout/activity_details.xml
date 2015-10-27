@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="#ff21ddff"
+        android:clickable="false"
+        android:outlineProvider="background">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/imageView2"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textView2"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@+id/imageView2"
+            android:textSize="20dp"
+            android:gravity="left" />
+
+        <TextView
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textView3"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@+id/textView2"
+            android:textSize="15dp"
+            android:gravity="left"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textView4"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/textView3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textSize="15dp"
+            android:gravity="left" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageView3"
+            android:layout_below="@+id/textView4"
+            android:layout_alignLeft="@+id/textView4"
+            android:layout_alignStart="@+id/textView4"
+            android:layout_marginTop="10dp"
+            android:visibility="invisible"
+            android:src="@drawable/top"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageView4"
+            android:visibility="visible"
+            android:layout_alignTop="@+id/imageView3"
+            android:layout_centerHorizontal="true"
+            android:layout_alignBaseline="@+id/imageView3"
+            android:src="@drawable/fb"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true" />
+
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buy Now"
+            android:background="@drawable/buynow"
+            android:id="@+id/button2"
+            android:color="#C4D0DC"
+            android:layout_centerHorizontal="true"
+            android:layout_alignBottom="@+id/imageView4"
+            android:layout_alignTop="@+id/imageView4"
+            android:backgroundTint="#C4D0DC"
+            android:height="50dp"
+            android:gravity="center"
+            android:outlineProvider="background" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="SELLER"
+            android:background="@drawable/inactive"
+            android:id="@+id/button3"
+            android:gravity="center"
+            android:layout_alignTop="@+id/button"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="SHIPPING"
+            android:id="@+id/button4"
+            android:layout_alignBottom="@+id/button"
+            android:background="@drawable/inactive"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_alignTop="@+id/button" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="BASIC INFO"
+            android:background="@drawable/inactive"
+            android:id="@+id/button"
+            android:layout_below="@+id/imageView3"
+            android:layout_toLeftOf="@+id/imageView2"
+            android:layout_toStartOf="@+id/imageView2"
+            android:layout_marginTop="20dp"
+            android:onClick="onBtnClicked"
+            />
+
+        <RelativeLayout
+            android:id="@+id/mainlayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/button">
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</ScrollView>
